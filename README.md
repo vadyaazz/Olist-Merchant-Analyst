@@ -10,9 +10,9 @@ SQL and Tableau analysis of seller performance on the Olist Brazilian e-commerce
 
 ## Dataset
 
-Brazilian E-Commerce Public Dataset by Olist (Kaggle). The raw CSV files are not included in this repository; please download them from Kaggle.
+Brazilian E-Commerce Public Dataset by Olist (Kaggle). The raw CSV files are not included in this repository.
 
-Tables used: `orders`, `order_items`, `sellers`, `products`, `product_category_name_translation`.
+Tables used: orders, order_items, sellers, products, and the category translation table (imported as category_name)
 
 ## Tools
 
@@ -21,9 +21,11 @@ Tables used: `orders`, `order_items`, `sellers`, `products`, `product_category_n
 
 ## Definitions
 
-- **Revenue:** [fill in, e.g. sum of `price` from `order_items`]
-- **Orders included:** [fill in, e.g. all orders / delivered orders only]
-- **Seller segments:** High = [fill in threshold], Mid = [fill in threshold], Low = [fill in threshold]
+- **Revenue:** sum of item price (order_items), excluding freight
+- **Orders included:** delivered orders only (order_status = 'delivered')
+- **Sellers:** identified by seller_id; city and state are shown as labels.
+- **Categories:** English names from the translation table (Portuguese name if no translation); only categories with at least 100 delivered orders, ranked by revenue (top 10).
+- **Seller segments:** High = R$10,000 or more, Mid = R$1,000 to R$9,999, Low = below R$1,000
 
 ## Business Questions and Findings
 
@@ -38,17 +40,17 @@ Tables used: `orders`, `order_items`, `sellers`, `products`, `product_category_n
 
 | Question | SQL script | Query output |
 |----------|------------|--------------|
-| 1. Monthly revenue | `Monthly_Revenue.sql` | `Q1_MonthlyRevenue.csv` |
-| 2. Top sellers | `Top_Sellers.sql` | `Q2_TopSellers.csv` |
-| 3. Seller segments | `Seller_Segment.sql` | `Q3_SellerSegment.csv` |
-| 4. Top categories | `Top_Categories.sql` | `Q4_TopCategories.csv` |
+| 1. Monthly revenue | `monthly_revenue.sql` | `Q1_MonthlyRevenue.csv` |
+| 2. Top sellers | `top_sellers.sql` | `Q2_TopSellers.csv` |
+| 3. Seller segments | `seller_segment.sql` | `Q3_SellerSegment.csv` |
+| 4. Top categories | `top_categories.sql` | `Q4_TopCategories.csv` |
 
-Other files: `KPI.csv` (dashboard KPIs), `Dashboard 1.png` (dashboard preview), `Olist_Merchant_Performance.twb` (Tableau workbook).
+Other files: KPI.csv (dashboard KPIs), Dashboard 1.png (dashboard preview), Olist_Merchant_Performance.twb (Tableau workbook).
 
 ## How to Reproduce
 
 1. Download the dataset from Kaggle (Brazilian E-Commerce Public Dataset by Olist).
-2. Import the CSV files into SQLite (e.g. with DB Browser for SQLite).
+2. Import the CSV files into SQLite (e.g. with DB Browser for SQLite), naming the category translation table category_name.
 3. Run the SQL scripts to generate the query outputs.
 4. Open the Tableau workbook to view the dashboard.
 
